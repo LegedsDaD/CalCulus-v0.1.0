@@ -1,8 +1,8 @@
 # 🧮 CalCulus
 
-**A high-performance C++ calculus and mathematics engine for Python, built with 
+*CalCulus** is a **fast, lightweight scientific computing library** written in **C++** and exposed to **Python** using **pybind11**.
 
-See [releases](https://github.com/LegedsDaD/CalCulus/releases) to get information about version
+[Go Back](https://github.com/LegedsDaD/CalCulus) to main page
 
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![PyPI Downloads](https://img.shields.io/pypi/dm/calculus?style=flat-square)
