@@ -2,7 +2,7 @@
 
 *CalCulus** is a **fast, lightweight scientific computing library** written in **C++** and exposed to **Python** using **pybind11**.
 
-[Go Back](https://github.com/LegedsDaD/CalCulus) to main page to get information about version. 
+[Go Back](https://github.com/LegedsDaD/CalCulus) to main page to get information about version and many more.
 
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
 ![PyPI Downloads](https://img.shields.io/pypi/dm/calculus?style=flat-square)
