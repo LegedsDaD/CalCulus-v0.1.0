@@ -1,4 +1,4 @@
-name: Auto Build and Publish to PyPI
+name: Build and Publish to PyPI
 
 on:
   push:
@@ -10,6 +10,10 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write   # REQUIRED for trusted publishing
+      contents: read
+
     steps:
 
     - name: Checkout repository
@@ -20,22 +24,22 @@ jobs:
       with:
         python-version: "3.11"
 
-    - name: Install build tools
-      run: |
-        python -m pip install --upgrade pip
-        pip install build wheel setuptools pybind11 twine
+    - name: Upgrade pip
+      run: python -m pip install --upgrade pip
 
-    - name: Detect project directory
+    - name: Install build dependencies
+      run: |
+        pip install build wheel setuptools pybind11
+
+    - name: Auto-detect project directory
       id: detect
       run: |
-        echo "Searching for pyproject.toml or setup.py..."
         DIR=$(dirname $(find . -type f \( -name "pyproject.toml" -o -name "setup.py" \) | head -n 1))
-        echo "Project directory detected: $DIR"
         echo "PROJECT_DIR=$DIR" >> $GITHUB_ENV
+        echo "Detected project directory: $DIR"
 
-    - name: Show detected directory contents
+    - name: Show project files
       run: |
-        echo "Detected directory: $PROJECT_DIR"
         ls -R $PROJECT_DIR
 
     - name: Build package
@@ -43,10 +47,7 @@ jobs:
         cd "$PROJECT_DIR"
         python -m build
 
-    - name: Publish to PyPI
-      run: |
-        cd "$PROJECT_DIR"
-        twine upload dist/*
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Publish package to PyPI (Trusted Publishing)
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        packages-dir: ${{ env.PROJECT_DIR }}/dist
