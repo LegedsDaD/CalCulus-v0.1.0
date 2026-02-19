@@ -12,8 +12,9 @@ ext_modules = [
 ]
 
 setup(
-    name="calculus",
+    name="calculus-cpp",
     version="0.1.0",
     packages=["calculus"],
     ext_modules=ext_modules,
 )
+
